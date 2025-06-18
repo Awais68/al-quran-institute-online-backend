@@ -17,9 +17,15 @@ const Registerschema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .required(),
-  password: Joi.string().min(3).required(),
   phone: Joi.string().min(10).max(20).required(),
+  age: Joi.string().valid("child", "teen", "adult").required(),
+
+  // age: Joi.string(),
+  currentLevel: Joi.string().valid("beginner", "intermediate", "advance"),
+  password: Joi.string().min(8).required(),
+  // confirmPassword: Joi.string().min(8).required(),
 });
+// console.log(req.body)
 const loginschema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
