@@ -1,27 +1,40 @@
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
-const UserSchema = Schema(
+const Registerschema = Schema(
   {
-    firstName: { type: String, trim: true },
-    lastName: { type: String, trim: true },
+    name: { type: String, trim: true },
+    fatherName: { type: String, trim: true },
     email: { type: String, required: true, unique: true },
+    gender: { type: String, trim: true, required: true },
     phone: { type: String },
+    city: { type: String },
+    country: { type: String },
     age: {
       type: String,
       trim: true,
-      enum: ["child", "teen", "adult"],
-      required: true
-    },    
-    // age: { type: String, trim: true, enum: ["child", "teen", "adult"] },
-    currentLevel: {
+      enum: ["child(02-12)", "teen(13-17)", "adult(18+)"],
+      required: true,
+    },
+    app: {
       type: String,
       trim: true,
-      enum: ["beginner", "intermediate", "advance"],
+      enum: ["whatsApp", "teams", "googleMeet", "telegram"],
+      required: true,
+    },
+    suitableTime: {
+      type: String,
+      trim: true,
+      enum: ["4-6", "6-8", "8-10", "10-12"],
+    },
+    course: {
+      type: String,
+      trim: true,
+      enum: ["qaida", "tajweed", "nazra", "hifz"],
+      required: true,
     },
 
     password: { type: String, trim: true, required: true },
-    // confirmPassword: { type: String, required: true, trim: true },
   },
   // console.log(req.body),
   {
@@ -29,9 +42,9 @@ const UserSchema = Schema(
   }
 );
 
-const User = mongoose.model("users", UserSchema);
+const register = mongoose.model("register", Registerschema);
 
-export default User;
+export default register;
 
 // address: { type: String },
 // DOB: { type: String },

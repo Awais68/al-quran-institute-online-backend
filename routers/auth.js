@@ -12,18 +12,24 @@ app.use(cors());
 const router = express.Router();
 
 const Registerschema = Joi.object({
-  firstName: Joi.string().min(3).max(30).required(),
-  lastName: Joi.string().min(3).max(30).required(),
+  name: Joi.string().min(3).max(30).required(),
+  fatherName: Joi.string().min(3).max(30).required(),
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .required(),
+  gender: Joi.string().valid("male", "female"),
   phone: Joi.string().min(10).max(20).required(),
-  age: Joi.string().valid("child", "teen", "adult").required(),
+  city: Joi.string().required(),
+  country: Joi.string().required(),
 
-  // age: Joi.string(),
-  currentLevel: Joi.string().valid("beginner", "intermediate", "advance"),
+  // age: Joi.string().valid("child", "teen", "adult").required(),
+  age: Joi.string()
+    .valid("child(02-12)", "teen(13-17)", "adult(18+)")
+    .required(),
+  app: Joi.string().valid("whatsApp", "teams", "googleMeet", "telegram"),
+  suitableTime: Joi.string().valid("4-6", "6-8", "8-10", "10-12"),
+  course: Joi.string().valid("qaida", "tajweed", "nazra", "hifz"),
   password: Joi.string().min(8).required(),
-  // confirmPassword: Joi.string().min(8).required(),
 });
 // console.log(req.body)
 const loginschema = Joi.object({
