@@ -13,7 +13,6 @@ const Registerschema = Schema(
     age: {
       type: String,
       trim: true,
-      enum: ["child(02-12)", "teen(13-17)", "adult(18+)"],
       required: true,
     },
     app: {

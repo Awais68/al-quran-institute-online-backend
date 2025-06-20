@@ -23,9 +23,7 @@ const Registerschema = Joi.object({
   country: Joi.string().required(),
 
   // age: Joi.string().valid("child", "teen", "adult").required(),
-  age: Joi.string()
-    .valid("child(02-12)", "teen(13-17)", "adult(18+)")
-    .required(),
+  age: Joi.string().valid().required(),
   app: Joi.string().valid("whatsApp", "teams", "googleMeet", "telegram"),
   suitableTime: Joi.string().valid("4-6", "6-8", "8-10", "10-12"),
   course: Joi.string().valid("qaida", "tajweed", "nazra", "hifz"),
