@@ -10,7 +10,7 @@ const Registerschema = Schema(
     phone: { type: String },
     city: { type: String },
     country: { type: String },
-    age: {
+    dob: {
       type: String,
       trim: true,
       required: true,
@@ -25,6 +25,10 @@ const Registerschema = Schema(
       type: String,
       trim: true,
       enum: ["4-6", "6-8", "8-10", "10-12"],
+    },
+    days: {
+      type: String,
+      required: true,
     },
     course: {
       type: String,
