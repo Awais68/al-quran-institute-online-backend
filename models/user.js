@@ -24,11 +24,10 @@ const Registerschema = Schema(
     suitableTime: {
       type: String,
       trim: true,
-      enum: ["4-6", "6-8", "8-10", "10-12"],
+      
     },
     days: {
       type: String,
-      required: true,
     },
     course: {
       type: String,

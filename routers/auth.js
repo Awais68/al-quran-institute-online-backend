@@ -23,11 +23,10 @@ const Registerschema = Joi.object({
   city: Joi.string().required(),
   country: Joi.string().required(),
 
-  // age: Joi.string().valid("child", "teen", "adult").required(),
   dob: Joi.string().valid().required(),
   app: Joi.string().valid("whatsApp", "teams", "googleMeet", "telegram"),
-  suitableTime: Joi.string().valid("1200AM"),
-  days: Joi.string(),
+  suitableTime: Joi.string().valid(),
+  // days: Joi.string(),
   course: Joi.string().valid("qaida", "tajweed", "nazra", "hifz"),
   password: Joi.string().min(8).required(),
 });
@@ -57,8 +56,14 @@ router.post("/signup", async (req, res) => {
     sendResponse(res, 201, newUser, false, "User is successfully registered");
   } catch (err) {
     console.log("Signup failed:", err.response?.data?.message);
-    alert(err.response?.data?.message);
-    sendResponse(res, 500, null, true, "An unexpected error occurred");
+
+    sendResponse(
+      res,
+      500,
+      null,
+      true,
+      "An unexpected error occurred" + err.message
+    );
   }
 });
 router.post("/login", async (req, res) => {
