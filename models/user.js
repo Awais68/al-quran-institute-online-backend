@@ -10,11 +10,11 @@ const Registerschema = Schema(
     phone: { type: String },
     city: { type: String },
     country: { type: String },
-    dob: {
-      type: String,
-      trim: true,
-      required: true,
-    },
+    // dob: {
+    //   type: String,
+    //   trim: true,
+    //   required: true,
+    // },
     app: {
       type: String,
       trim: true,

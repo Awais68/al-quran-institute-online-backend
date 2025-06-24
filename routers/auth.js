@@ -23,7 +23,7 @@ const Registerschema = Joi.object({
   city: Joi.string().required(),
   country: Joi.string().required(),
 
-  dob: Joi.string().valid().required(),
+  // dob: Joi.string().valid().required(),
   app: Joi.string().valid("whatsApp", "teams", "googleMeet", "telegram"),
   suitableTime: Joi.string().valid(),
   // days: Joi.string(),
