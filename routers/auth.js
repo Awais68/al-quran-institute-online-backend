@@ -21,15 +21,25 @@ const Registerschema = Joi.object({
   phone: Joi.string().min(10).max(20).required(),
   city: Joi.string().required(),
   country: Joi.string().required(),
-
+  dob: Joi.string(),
   // age: Joi.string().valid("child", "teen", "adult").required(),
-  age: Joi.string()
-    .valid("child(02-12)", "teen(13-17)", "adult(18+)")
-    .required(),
+  age: Joi.number().valid(),
   app: Joi.string().valid("whatsApp", "teams", "googleMeet", "telegram"),
-  suitableTime: Joi.string().valid("4-6", "6-8", "8-10", "10-12"),
+  suitableTime: Joi.string().valid(),
   course: Joi.string().valid("qaida", "tajweed", "nazra", "hifz"),
+  // classDays: Joi.string().valid(
+
+  //   "Monday",
+  //   "Tuesday",
+  //   "Wednesday",
+  //   "Thursday",
+  //   "Friday",
+  //   "Saturday",
+  //   "Sunday"
+  // ),
+  // image: Joi.string(),
   password: Joi.string().min(8).required(),
+  image: Joi.string().uri(),
 });
 // console.log(req.body)
 const loginschema = Joi.object({

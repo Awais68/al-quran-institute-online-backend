@@ -11,10 +11,8 @@ const Registerschema = Schema(
     city: { type: String },
     country: { type: String },
     age: {
-      type: String,
+      type: Number,
       trim: true,
-      enum: ["child(02-12)", "teen(13-17)", "adult(18+)"],
-      required: true,
     },
     app: {
       type: String,
@@ -25,7 +23,6 @@ const Registerschema = Schema(
     suitableTime: {
       type: String,
       trim: true,
-      enum: ["4-6", "6-8", "8-10", "10-12"],
     },
     course: {
       type: String,
@@ -33,8 +30,35 @@ const Registerschema = Schema(
       enum: ["qaida", "tajweed", "nazra", "hifz"],
       required: true,
     },
+    image: {
+      type: String,
+      required: true,
+      trim: true,
+      default:
+        "https://console.cloudinary.com/app/c-a9c666dc11a39ce91bc16c14702c32/assets/media_library/search/asset/280b4767e22d530326165f212e055620/manage/summary?q=&view_mode=mosaic&context=manage",
+    },
+
+    // classDays: {
+    //   type: String,
+    //   required: true,
+    //   days: [
+    //     "Monday",
+    //     "Tuesday",
+    //     "Wednesday",
+    //     "Thursday",
+    //     "Friday",
+    //     "Saturday",
+    //     "Sunday",
+    //   ],
+    // },
 
     password: { type: String, trim: true, required: true },
+    role: {
+      type: String,
+      trim: true,
+      default: "Student",
+      enum: ["Admin", "Student", "Teacher"],
+    },
   },
   // console.log(req.body),
   {
