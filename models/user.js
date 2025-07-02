@@ -10,10 +10,18 @@ const Registerschema = Schema(
     phone: { type: String },
     city: { type: String },
     country: { type: String },
+
     age: {
       type: Number,
       trim: true,
     },
+
+    // dob: {
+    //   type: String,
+    //   trim: true,
+    //   required: true,
+    // },
+
     app: {
       type: String,
       trim: true,
@@ -23,6 +31,12 @@ const Registerschema = Schema(
     suitableTime: {
       type: String,
       trim: true,
+
+      
+    },
+    days: {
+      type: String,
+
     },
     course: {
       type: String,
@@ -69,8 +83,3 @@ const Registerschema = Schema(
 const register = mongoose.model("register", Registerschema);
 
 export default register;
-
-// address: { type: String },
-// DOB: { type: String },
-// city: { type: String, trim: true },
-// country: { type: String, trim: true },

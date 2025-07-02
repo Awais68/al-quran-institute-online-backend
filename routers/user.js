@@ -5,6 +5,17 @@ import User from "../models/user.js";
 
 const router = express.Router();
 
+router.get("/student", authorization, async (req, res) => {
+  try {
+    const user = await User.findOne({
+      _id: req.user._id,
+    });
+    sendResponse(res, 201, User, false, "User Get Successfully");
+  } catch (err) {
+    sendResponse(res, 500, null, true, "Something went wrong");
+  }
+});
+
 router.put("/updateUser", authorization, async (req, res) => {
   try {
     const { phone, address, DOB, city, country } = req.body;

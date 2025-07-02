@@ -6,6 +6,7 @@ import User from "../models/user.js";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
 import cors from "cors";
+// import authorization from "../middlewares/authtication.js";
 
 const app = express();
 app.use(cors());
@@ -17,14 +18,18 @@ const Registerschema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .required(),
-  gender: Joi.string().valid("male", "female"),
+  gender: Joi.string().valid("male", "female", "other"),
   phone: Joi.string().min(10).max(20).required(),
   city: Joi.string().required(),
   country: Joi.string().required(),
+
+  // dob: Joi.string().valid().required(),
   dob: Joi.string(),
   // age: Joi.string().valid("child", "teen", "adult").required(),
   age: Joi.number().valid(),
   app: Joi.string().valid("whatsApp", "teams", "googleMeet", "telegram"),
+  suitableTime: Joi.string().valid(),
+  // days: Joi.string(),
   suitableTime: Joi.string().valid(),
   course: Joi.string().valid("qaida", "tajweed", "nazra", "hifz"),
   // classDays: Joi.string().valid(
@@ -67,8 +72,14 @@ router.post("/signup", async (req, res) => {
     sendResponse(res, 201, newUser, false, "User is successfully registered");
   } catch (err) {
     console.log("Signup failed:", err.response?.data?.message);
-    alert(err.response?.data?.message);
-    sendResponse(res, 500, null, true, "An unexpected error occurred");
+
+    sendResponse(
+      res,
+      500,
+      null,
+      true,
+      "An unexpected error occurred" + err.message
+    );
   }
 });
 router.post("/login", async (req, res) => {
@@ -104,9 +115,6 @@ router.post("/login", async (req, res) => {
     console.error("Error =>", err);
     sendResponse(res, 500, null, true, "An unexpected error occurred");
   }
-});
-router.get("/user", async (req, res) => {
-  sendResponse(res, 201, User, false, "User Get Successfully");
 });
 
 export default router;

@@ -3,8 +3,6 @@ import morgan from "morgan";
 import connectToDB from "./utilis/connectDb.js";
 import authRoutes from "./routers/auth.js";
 import userRoutes from "./routers/user.js";
-import uploadRoutes from "./routers/upload.js";
-
 import cors from "cors";
 
 const app = express();
@@ -23,7 +21,6 @@ app.use("/auth", authRoutes);
 app.use("/signup", authRoutes);
 app.use("/login", authRoutes);
 app.use("/user", userRoutes);
-app.use("/upload", uploadRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
