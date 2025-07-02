@@ -10,18 +10,15 @@ const Registerschema = Schema(
     phone: { type: String },
     city: { type: String },
     country: { type: String },
-
     age: {
       type: Number,
       trim: true,
     },
-
-    // dob: {
-    //   type: String,
-    //   trim: true,
-    //   required: true,
-    // },
-
+    dob: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     app: {
       type: String,
       trim: true,
@@ -31,25 +28,19 @@ const Registerschema = Schema(
     suitableTime: {
       type: String,
       trim: true,
-
-      
     },
     days: {
       type: String,
-
     },
     course: {
       type: String,
       trim: true,
-      enum: ["qaida", "tajweed", "nazra", "hifz"],
+      enum: ["qaida", "tajweed", "nazra", "hifz", "namaz", "arabic"],
       required: true,
     },
     image: {
       type: String,
-      required: true,
-      trim: true,
-      default:
-        "https://console.cloudinary.com/app/c-a9c666dc11a39ce91bc16c14702c32/assets/media_library/search/asset/280b4767e22d530326165f212e055620/manage/summary?q=&view_mode=mosaic&context=manage",
+      default: "",
     },
 
     // classDays: {

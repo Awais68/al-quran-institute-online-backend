@@ -31,7 +31,7 @@ const Registerschema = Joi.object({
   suitableTime: Joi.string().valid(),
   // days: Joi.string(),
   suitableTime: Joi.string().valid(),
-  course: Joi.string().valid("qaida", "tajweed", "nazra", "hifz"),
+  course: Joi.string().valid("qaida", "tajweed", "nazra", "hifz", "namaz", "arabic"),
   // classDays: Joi.string().valid(
 
   //   "Monday",

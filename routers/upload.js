@@ -1,48 +1,63 @@
 import express from "express";
 import multer from "multer";
-import cloudnary from "../cloudnary.js";
+import cloudinary from "../cloudnary.js";
+import register from "../models/user.js";
 
 const router = express.Router();
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // Make sure this folder exists
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
+// Example: Express route handler
+router.post("/signup", async (req, res) => {
+  const { name, email, image, ...rest } = req.body;
+
+  // image yahan ek string URL hai
+  // Aap isay database mein save kar sakte hain
+  const user = new newUser({
+    name,
+    email,
+    image, // yeh Cloudinary ka URL hai
+    ...rest,
+  });
+
+  await user.save();
+  res.status(201).json({ message: "User created", user });
 });
-const upload = multer({ storage: storage });
 
-// POST /upload
-router.post("/", upload.single("image"), (req, res) => {
-  res.json({ imageUrl: `/uploads/${req.file.filename}` });
-});
-
-router.post("/upload", upload.single("image"), async (req, res) => {
+// POST /upload/:id
+router.post("/:id", upload.single("image"), async (req, res) => {
   try {
-    if (!req.file) return res.status(400).json({ msg: "No file uploaded" });
+    const userId = req.params.id;
+    if (!req.file) {
+      return res.status(400).json({ message: "No image file provided" });
+    }
 
-    const result = await cloudnary.uploader.upload_stream(
-      {
-        resource_type: "image",
-        folder: "al-quran", // optional
-      },
-      (error, result) => {
-        if (error) return res.status(500).json({ error: error.message });
-        return res.status(200).json({ url: result?.secure_url });
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload_stream(
+      { resource_type: "image" },
+      async (error, result) => {
+        if (error)
+          return res
+            .status(500)
+            .json({ message: "Cloudinary upload failed", error });
+        // Update user image field
+        const user = await register.findByIdAndUpdate(
+          userId,
+          { image: result.secure_url },
+          { new: true }
+        );
+        if (!user) return res.status(404).json({ message: "User not found" });
+        res.json({
+          message: "Image uploaded and user updated",
+          imageUrl: result.secure_url,
+          user,
+        });
       }
     );
-
-    result.end(req.file.buffer); // pipe file buffer into cloudinary stream
+    result.end(req.file.buffer);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
-});
-
-router.post("/:id/upload", upload.single("image"), (req, res) => {
-  // User profile image update logic
-  res.json({ imageUrl: `/uploads/${req.file.filename}` });
 });
 
 export default router;
