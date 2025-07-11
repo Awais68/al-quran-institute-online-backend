@@ -88,15 +88,18 @@ const sendAdminEmail = async (userEmail) => {
       to: ADMIN_EMAIL,
       to: "awaisniaz720@gmail.com", // admin
       to: "bfunter87@gmail.com", // admin
-      to: "muzammilshaikh7077@gmail.com", // admin
-      to: "hamzajii768@gmail.com", // admin
-      to: "owaisniaz596@gmail.com", // admin
-      subject: "New User Registration",
+      // to: "muzammilshaikh7077@gmail.com", // admin
+      // to: "hamzajii768@gmail.com", // admin
+      // to: "owaisniaz596@gmail.com", // admin
+      subject: "Successfull New User Registration",
       // text: "hello World",
-      html: "<b>Well Come Back Guys</b>",
-      html: "<b>One New Signup User in your WebSite </b>",
-      html: `<b>New user registered with email: ${userEmail}</b>`,
+      // html: "<b>Well Come Back Guys</b>",
+      // html: "<b>One New Signup User in your WebSite </b>",
+      html: `<b>New user registered with email: ${userEmail}</b><br>
+      <p>Registered at: ${new Date().toISOString()}</p>`,
     });
+    //  <p>Name: ${userData.name}</p>
+    //  <p>Course: ${userData.course}</p>
 
     console.log("Email sent to admin:", info.messageId);
     return true;

@@ -1,10 +1,8 @@
-// import mongoose from "mongoose";
-
 import express from "express";
 import mongoose from "mongoose";
 import multer from "multer";
-import { storage } from "./config/cloudinary.js";
-import Image from "./models/Image.js";
+import Image from "../models/Image.js";
+import { storage } from "../config/cloudinary.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -63,6 +61,4 @@ app.get("/api/images", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 export default connectToDB;

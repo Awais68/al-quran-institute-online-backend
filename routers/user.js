@@ -3,9 +3,9 @@ import sendResponse from "../helper/sendResponse.js";
 import authorization from "../middlewares/authtication.js";
 import User from "../models/user.js";
 
-const router = express.Router();
+const userRoutes = express.Router();
 
-router.get("/student", authorization, async (req, res) => {
+userRoutes.get("/student", authorization, async (req, res) => {
   try {
     const user = await User.findOne({
       _id: req.user._id,
@@ -16,7 +16,7 @@ router.get("/student", authorization, async (req, res) => {
   }
 });
 
-router.put("/updateUser", authorization, async (req, res) => {
+userRoutes.put("/updateUser", authorization, async (req, res) => {
   try {
     const { phone, address, DOB, city, country } = req.body;
 
@@ -36,7 +36,7 @@ router.put("/updateUser", authorization, async (req, res) => {
   }
 });
 
-router.get("/getUser", async (req, res) => {
+userRoutes.get("/getUser", async (req, res) => {
   try {
     const user = await User.find();
     sendResponse(res, 200, user, false, "Users fetched successfully");
@@ -45,4 +45,4 @@ router.get("/getUser", async (req, res) => {
   }
 });
 
-export default router;
+export default userRoutes;
