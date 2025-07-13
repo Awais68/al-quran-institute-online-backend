@@ -43,19 +43,19 @@ const Registerschema = Schema(
       default: "",
     },
 
-    // classDays: {
-    //   type: String,
-    //   required: true,
-    //   days: [
-    //     "Monday",
-    //     "Tuesday",
-    //     "Wednesday",
-    //     "Thursday",
-    //     "Friday",
-    //     "Saturday",
-    //     "Sunday",
-    //   ],
-    // },
+    classDays: {
+      type: [String],
+      enum: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      default: undefined,
+    },
 
     password: { type: String, trim: true, required: true },
     role: {

@@ -29,7 +29,7 @@ const Registerschema = Joi.object({
     .required(),
   gender: Joi.string().valid("male", "female", "other"),
   phone: Joi.string().min(10).max(20).required(),
-  city: Joi.string().required(),
+  city: Joi.string().allow("", null).optional(),
   country: Joi.string().required(),
 
   // dob: Joi.string().valid().required(),
@@ -48,16 +48,17 @@ const Registerschema = Joi.object({
     "namaz",
     "arabic"
   ),
-  // classDays: Joi.string().valid(
-
-  //   "Monday",
-  //   "Tuesday",
-  //   "Wednesday",
-  //   "Thursday",
-  //   "Friday",
-  //   "Saturday",
-  //   "Sunday"
-  // ),
+  classDays: Joi.array().items(
+    Joi.string().valid(
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    )
+  ),
   // image: Joi.string(),
   password: Joi.string().min(8).required(),
   image: Joi.string().uri(),
