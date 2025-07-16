@@ -30,6 +30,7 @@ app.use("/contactForm", contactRouter);
 app.use("/studentById", StudentByIdRouter);
 app.use("/", mailRouter);
 app.use("/", currentStudRouter);
+app.use("/getCurrentUser", currentStudRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

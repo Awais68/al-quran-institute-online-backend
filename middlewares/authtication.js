@@ -2,6 +2,7 @@ import sendResponse from "../helper/sendResponse.js";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 import User from "../models/user.js";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default async function authorization(req, res, next) {
   try {
@@ -32,7 +33,7 @@ export default async function authorization(req, res, next) {
       return sendResponse(res, 403, null, true, "User Not Found");
     }
 
-    req.user = decoded;
+    req.user = user; // Set the actual user object
     return next();
   } catch (err) {
     return sendResponse(res, 500, null, true, "An unexpected error occurred");
