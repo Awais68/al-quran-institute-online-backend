@@ -22,7 +22,7 @@ const Registerschema = Schema(
     app: {
       type: String,
       trim: true,
-      enum: ["whatsApp", "teams", "googleMeet", "telegram"],
+      enum: ["WhatsApp", "Teams", "Google Meet", "Telegram", "Zoom"],
       required: true,
     },
     suitableTime: {
@@ -35,7 +35,7 @@ const Registerschema = Schema(
     course: {
       type: String,
       trim: true,
-      enum: ["qaida", "tajweed", "nazra", "hifz", "namaz", "arabic"],
+      enum: ["Qaida", "Tajweed", "Nazra", "Hifz", "Namaz", "Arabic"],
       required: true,
     },
     image: {
@@ -64,6 +64,10 @@ const Registerschema = Schema(
       default: "Student",
       enum: ["Admin", "Student", "Teacher"],
     },
+    // roll_no: {
+    //   type: String,
+    //   unique: true,
+    // },
   },
   // console.log(req.body),
   {

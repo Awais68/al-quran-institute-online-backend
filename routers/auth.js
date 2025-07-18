@@ -7,6 +7,9 @@ import "dotenv/config";
 import jwt from "jsonwebtoken";
 import cors from "cors";
 import nodemailer from "nodemailer";
+import Counter from "../models/counterSchema.js";
+import sendMail from "../utils/sendMail.js";
+
 // import authorization from "../middlewares/authtication.js";
 
 const sendToAdmin = async (req, res) => {
@@ -36,18 +39,25 @@ const Registerschema = Joi.object({
   dob: Joi.string(),
   // age: Joi.string().valid("child", "teen", "adult").required(),
   age: Joi.number().valid(),
-  app: Joi.string().valid("whatsApp", "teams", "googleMeet", "telegram"),
+  app: Joi.string().valid(
+    "WhatsApp",
+    "Teams",
+    "Google Meet",
+    "Telegram",
+    "Zoom"
+  ),
   suitableTime: Joi.string().valid(),
-  // days: Joi.string(),
   suitableTime: Joi.string().valid(),
   course: Joi.string().valid(
-    "qaida",
-    "tajweed",
-    "nazra",
-    "hifz",
-    "namaz",
-    "arabic"
+    "Qaida",
+    "Tajweed",
+    "Nazra",
+    "Hifz",
+    "Namaz",
+    "Arabic"
   ),
+  role: Joi.string().valid("Admin", "Student", "Teacher"),
+  // role_no: Joi.string().valid(),
   classDays: Joi.array().items(
     Joi.string().valid(
       "Monday",
@@ -92,17 +102,22 @@ const sendAdminEmail = async (userEmail) => {
       // to: "muzammilshaikh7077@gmail.com", // admin
       // to: "hamzajii768@gmail.com", // admin
       // to: "owaisniaz596@gmail.com", // admin
-      subject: "Successfull New User Registration",
+      subject:
+        "One Who Want to Contact You Successfull sent a Message, Please Check",
       // text: "hello World",
       // html: "<b>Well Come Back Guys</b>",
       // html: "<b>One New Signup User in your WebSite </b>",
-      html: `<b>New user registered with email: ${userEmail}</b><br>
+      html: `<b>Contact Us Form fill by: ${userEmail}</b><br>
       <p>Registered at: ${new Date().toISOString()}</p>`,
     });
     //  <p>Name: ${userData.name}</p>
     //  <p>Course: ${userData.course}</p>
+    await sendMail(
+      "New Contact Form Submission",
+      `<b>Name:</b> ${value.name}<br><b>Email:</b> ${value.email}<br><b>Phone:</b> ${value.phone}<br><b>Subject:</b> ${value.subject}<br><b>Message:</b> ${value.message}`
+    );
 
-    console.log("Email sent to admin:", info.messageId);
+    console.log("Email sent to admin filling contact form:", info.messageId);
     return true;
   } catch (error) {
     console.error("Error sending email to admin:", error);
@@ -124,12 +139,34 @@ router.post("/signup", async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(value.password, 12);
-    const newUser = new User({ ...value, password: hashedPassword });
+
+    const getNextRollNo = async () => {
+      const counter = await Counter.findOneAndUpdate(
+        { id: "roll_no" },
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
+      );
+      return counter.seq;
+    };
+
+    const nextRollNo = await getNextRollNo();
+
+    const newUser = new User({
+      ...value,
+      password: hashedPassword,
+      roll_no: nextRollNo,
+    });
     await newUser.save();
+
+    // const newUser = new User({ ...value, password: hashedPassword });
+    // await newUser.save();
     sendResponse(res, 201, newUser, false, "User is successfully registered");
+
+    // await newUser.save();
 
     // Send email to admin after successful registration
     const emailSent = await sendAdminEmail(value.email);
+
     if (!emailSent) {
       console.warn("Email to admin failed to send, but user was registered.");
     }

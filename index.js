@@ -9,6 +9,7 @@ import StudentByIdRouter from "./routers/singleStudent.js";
 import mailRouter from "./routers/mail.js";
 import userRoutes from "./routers/user.js";
 import currentStudRouter from "./routers/currentStud.js";
+import studentRouter from "./routers/student.js";
 const app = express();
 const PORT = 4000; // 0 means OS will assign a free port
 
@@ -26,11 +27,12 @@ app.use("/auth", authRoutes);
 app.use("/signup", authRoutes);
 app.use("/login", authRoutes);
 app.use("/user", userRoutes);
-app.use("/contactForm", contactRouter);
+app.use("/contactForms", contactRouter);
 app.use("/studentById", StudentByIdRouter);
 app.use("/", mailRouter);
 app.use("/", currentStudRouter);
 app.use("/getCurrentUser", currentStudRouter);
+app.use("/", studentRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

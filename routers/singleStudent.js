@@ -7,14 +7,9 @@ const StudentByIdRouter = express.Router();
 
 StudentByIdRouter.get("/getAStudent/:id", async (req, res) => {
   try {
-    const { id } = req.params; // ❌ You had: const { id } = req.params.id;
+    const { id } = req.params;
 
     const student = await register.findById(id);
-
-    // Optionally, you can check if student was found
-    // if (!student) {
-    //   return sendResponse(res, 404, null, true, "Student not found");
-    // }
 
     sendResponse(res, 200, student, false, "Student fetched successfully");
   } catch (error) {
