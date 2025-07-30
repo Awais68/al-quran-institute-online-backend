@@ -7,24 +7,17 @@ import jwt from "jsonwebtoken";
 import cors from "cors";
 import authorization from "../middlewares/authtication.js";
 
-
-
 const app = express();
 app.use(cors());
 const router = express.Router();
 
 
-// console.log(req.body)
 const loginschema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
     .required(),
   password: Joi.string().min(3).required(),
 });
-
-
-
-
 
 router.get("/currentStudent", authorization, async (req, res) => {
   try {
@@ -50,17 +43,13 @@ router.get("/currentStudent", authorization, async (req, res) => {
   }
 });
 
-
 router.get("/getCurrentUser", authorization, async (req, res) => {
   try {
-    const currentUser = await User.findById(req.user.id).select(
-      "-password"
-    );
+    const currentUser = await User.findById(req.user.id).select("-password");
     sendResponse(res, 200, currentUser, false, "Fetched Data Successfully");
   } catch (error) {
     sendResponse(res, 500, null, true, "xxxxxxxxxxxxxx");
   }
-})
+});
 
 export default router;
-

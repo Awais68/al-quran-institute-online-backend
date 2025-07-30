@@ -73,7 +73,7 @@ const Registerschema = Joi.object({
   password: Joi.string().min(8).required(),
   image: Joi.string().uri(),
 });
-// console.log(req.body)
+
 const loginschema = Joi.object({
   email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
@@ -102,25 +102,26 @@ const sendAdminEmail = async (userEmail) => {
       // to: "muzammilshaikh7077@gmail.com", // admin
       // to: "hamzajii768@gmail.com", // admin
       // to: "owaisniaz596@gmail.com", // admin
-      subject:
-        "One Who Want to Contact You Successfull sent a Message, Please Check",
-      // text: "hello World",
-      // html: "<b>Well Come Back Guys</b>",
-      // html: "<b>One New Signup User in your WebSite </b>",
-      html: `<b>Contact Us Form fill by: ${userEmail}</b><br>
+      subject: "Student Registered Successfully ",
+      text: "hello World",
+      html: "<b>Well Come Back Guys</b>",
+      html: "<b>New user Signup in your WebSite </b>",
+      html: `<b>Login By: ${userEmail}</b><br>
+      <p>Registered at: ${new Date().toISOString()}</p>`,
+      html: `<b>Login By: ${userEmail}</b><br>
+      <p>Registered at: ${new Date().toISOString()}</p>`,
+      html: `<b>Login By: ${userName}</b><br>
       <p>Registered at: ${new Date().toISOString()}</p>`,
     });
     //  <p>Name: ${userData.name}</p>
     //  <p>Course: ${userData.course}</p>
     await sendMail(
-      "New Contact Form Submission",
+      "Mail Recives",
       `<b>Name:</b> ${value.name}<br><b>Email:</b> ${value.email}<br><b>Phone:</b> ${value.phone}<br><b>Subject:</b> ${value.subject}<br><b>Message:</b> ${value.message}`
     );
 
-    console.log("Email sent to admin filling contact form:", info.messageId);
     return true;
   } catch (error) {
-    console.error("Error sending email to admin:", error);
     return false;
   }
 };
@@ -130,7 +131,6 @@ router.post("/signup", async (req, res) => {
     const { error, value } = Registerschema.validate(req.body);
     if (error) {
       return sendResponse(res, 403, null, true, error.message);
-      console.log("error is here====>>>>>>", error.details[0].message);
     }
 
     const user = await User.findOne({ email: value.email });
@@ -165,14 +165,15 @@ router.post("/signup", async (req, res) => {
     // await newUser.save();
 
     // Send email to admin after successful registration
-    const emailSent = await sendAdminEmail(value.email);
+    const emailSent = await sendMail(
+      "Congratulations... !  You have a New Registration in Al-Quran Institute Online",
+      `<b>Name:</b> ${value.name}<br><b>Email:</b> ${value.email}<br><b>Phone:</b> ${value.phone}<br><b>Course:</b> ${value.course}<br><b>Country:</b> ${value.country}`
+    );
 
     if (!emailSent) {
       console.warn("Email to admin failed to send, but user was registered.");
     }
   } catch (err) {
-    console.log("Signup failed:", err.response?.data?.message);
-
     sendResponse(
       res,
       500,

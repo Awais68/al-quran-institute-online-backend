@@ -31,7 +31,6 @@ const sendAdminEmail = async (userEmail) => {
       <p>Registered at: ${new Date().toISOString()}</p>`,
     });
 
-    console.log("Email sent to admin:", info.messageId);
     return true;
   } catch (error) {
     console.error("Error sending email to admin:", error);
@@ -56,7 +55,7 @@ contactRouter.post("/", async (req, res) => {
 
     // Send mail to admin
     await sendMail(
-      "New Contact Form Submission",
+      "New Student Registered",
       `<b>Name:</b> ${value.name}<br><b>Email:</b> ${value.email}<br><b>Phone:</b> ${value.phone}<br><b>Subject:</b> ${value.subject}<br><b>Message:</b> ${value.message}`
     );
 
@@ -68,8 +67,6 @@ contactRouter.post("/", async (req, res) => {
       "User's message received successfully"
     );
   } catch (err) {
-    console.log("contact failed:", err.message);
-
     sendResponse(
       res,
       500,

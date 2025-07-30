@@ -69,7 +69,7 @@ const Registerschema = Schema(
     //   unique: true,
     // },
   },
-  // console.log(req.body),
+
   {
     timestamps: true,
   }

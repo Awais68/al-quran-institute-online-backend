@@ -24,16 +24,14 @@ mailRouter.get("/send-email/:email", async (req, res) => {
   const info = await transporter.sendMail({
     from: '"Al-Quran Institute Online"<codetheagent1@gmail.com>', // sender
     to: "awaisniaz720@gmail.com", // admin
-    to: "bfunter87@gmail.com", // admin
+
     to: "muzammilshaikh7077@gmail.com", // admin
-    to: "hamzajii768@gmail.com", // admin
-    to: "owaisniaz596@gmail.com", // admin
+
     subject: "Sending emails to user and admin ",
     // text: "hello World",
     html: "<b>Well Come Back Guys</b>",
     html: "<b>One New Signup User in your WebSite </b>",
   });
-  console.log("message.sent", info.messageId);
   res.send("Email sent");
 });
 

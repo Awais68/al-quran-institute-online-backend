@@ -17,7 +17,6 @@ const sendMail = async (subject, message, to = "awaisniaz720@gmail.com") => {
       html: message,
     });
 
-    console.log("Email sent:", info.messageId);
     return true;
   } catch (error) {
     console.error("Error sending email:", error);
