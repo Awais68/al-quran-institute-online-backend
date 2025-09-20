@@ -1,17 +1,17 @@
 import nodemailer from "nodemailer";
 
-const sendMail = async (subject, message, to = "awaisniaz720@gmail.com") => {
+const sendMail = async (subject, message, to = "aqionline786@gmail.com") => {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "bfunter87@gmail.com", // apna email
-        pass: "ppvssaxzxtqpvtum", // apna app password
+        user: "aqionline786@gmail.com", // apna email
+        pass: "cics roat rbyp viau", // apna app password
       },
     });
 
     const info = await transporter.sendMail({
-      from: '"Al-Quran Institute Online"<bfunter87@gmail.com>',
+      from: '"Al-Quran Institute Online"<aqionline786@gmail.com>',
       to,
       subject,
       html: message,
