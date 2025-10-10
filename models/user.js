@@ -35,7 +35,15 @@ const Registerschema = Schema(
     course: {
       type: String,
       trim: true,
-      enum: ["Qaida", "Tajweed", "Nazra", "Hifz", "Namaz", "Arabic"],
+      enum: [
+        "Qaida",
+        "Tajweed",
+        "Nazra",
+        "Hifz",
+        "Namaz",
+        "Arabic",
+        "Islamic Studies"
+      ],
       required: true,
     },
     image: {

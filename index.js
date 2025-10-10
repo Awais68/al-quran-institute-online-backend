@@ -13,7 +13,6 @@ import studentRouter from "./routers/student.js";
 const app = express();
 const PORT = 4000; // 0 means OS will assign a free port
 
-
 app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.json());

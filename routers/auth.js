@@ -54,7 +54,8 @@ const Registerschema = Joi.object({
     "Nazra",
     "Hifz",
     "Namaz",
-    "Arabic"
+    "Arabic",
+    "Islamic Studies"
   ),
   role: Joi.string().valid("Admin", "Student", "Teacher"),
   // role_no: Joi.string().valid(),
@@ -81,7 +82,7 @@ const loginschema = Joi.object({
   password: Joi.string().min(3).required(),
 });
 
-const ADMIN_EMAIL = "awaisniaz720@gmail.com"; // Admin email
+const ADMIN_EMAIL = "aqionline786@gmail.com"; // Admin email
 
 // Function to send email to admin
 const sendAdminEmail = async (userEmail) => {
@@ -89,8 +90,8 @@ const sendAdminEmail = async (userEmail) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "bfunter87@gmail.com",
-        pass: "ppvssaxzxtqpvtum",
+        user: "aqionline786@gmail.com",
+        pass: "cics roat rbyp viau",
       },
     });
 
@@ -98,10 +99,7 @@ const sendAdminEmail = async (userEmail) => {
       from: '"Al-Quran Institute Online"<codetheagent1@gmail.com>', // sender
       to: ADMIN_EMAIL,
       to: "awaisniaz720@gmail.com", // admin
-      to: "bfunter87@gmail.com", // admin
-      // to: "muzammilshaikh7077@gmail.com", // admin
-      // to: "hamzajii768@gmail.com", // admin
-      // to: "owaisniaz596@gmail.com", // admin
+
       subject: "Student Registered Successfully ",
       text: "hello World",
       html: "<b>Well Come Back Guys</b>",
@@ -166,7 +164,7 @@ router.post("/signup", async (req, res) => {
 
     // Send email to admin after successful registration
     const emailSent = await sendMail(
-      "Congratulations... !  You have a New Registration in Al-Quran Institute Online",
+      "Congratulations.! You have a New Registration in Al-Quran Institute Online",
       `<b>Name:</b> ${value.name}<br><b>Email:</b> ${value.email}<br><b>Phone:</b> ${value.phone}<br><b>Course:</b> ${value.course}<br><b>Country:</b> ${value.country}`
     );
 
