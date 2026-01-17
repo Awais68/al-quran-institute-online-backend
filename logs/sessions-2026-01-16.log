@@ -1,0 +1,159 @@
+{"initiator":{"userName":"ANUS","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"ANUS","userType":"Teacher"}],"sessionId":"696a305cebcca0d6f597b8fe","timestamp":"2026-01-16T14:16:20.830Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a305cebcca0d6f597b8fe","timestamp":"2026-01-16T14:16:20.831Z","userName":"ANUS","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a305cebcca0d6f597b8fe","timestamp":"2026-01-16T14:16:20.837Z","userName":"ANUS","userType":"Teacher"}
+{"duration":7,"level":"info","message":"User Left Session","sessionId":"696a305cebcca0d6f597b8fe","timestamp":"2026-01-16T14:16:27.610Z"}
+{"duration":7,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a305cebcca0d6f597b8fe","timestamp":"2026-01-16T14:16:27.610Z"}
+{"initiator":{"userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T14:26:20.424Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:26:20.425Z","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:26:20.434Z","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":53,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T14:27:13.487Z"}
+{"duration":53,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T14:27:13.488Z"}
+{"initiator":{"userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T14:35:23.844Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:35:23.844Z","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:35:23.861Z","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":21,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T14:35:44.542Z"}
+{"duration":21,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T14:35:44.542Z"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:40:29.594Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:40:29.594Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:40:29.602Z","userName":"FARAZ","userType":"Teacher"}
+{"initiator":{"userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T14:40:36.766Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:40:36.766Z","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:40:36.784Z","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":15,"level":"info","message":"User Left Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:40:44.485Z"}
+{"duration":15,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:40:44.485Z"}
+{"duration":8,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T14:40:44.487Z"}
+{"duration":8,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T14:40:44.488Z"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:45:21.120Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:45:21.123Z","userName":"FARAZ","userType":"Teacher"}
+{"duration":21,"level":"info","message":"User Left Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:45:42.556Z"}
+{"duration":21,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:45:42.558Z"}
+{"initiator":{"userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T14:46:12.017Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:46:12.017Z","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:46:12.026Z","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":9,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T14:46:21.422Z"}
+{"duration":9,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T14:46:21.423Z"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:46:28.536Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:46:28.537Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:46:28.558Z","userName":"FARAZ","userType":"Teacher"}
+{"duration":23,"level":"info","message":"User Left Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:46:51.342Z"}
+{"duration":23,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:46:51.342Z"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:47:07.773Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:47:07.773Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:47:07.779Z","userName":"FARAZ","userType":"Teacher"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T14:47:45.294Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:47:45.295Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:47:45.299Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":17,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T14:48:01.857Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":17,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T14:48:01.858Z"}
+{"duration":58,"level":"info","message":"User Left Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:48:06.069Z"}
+{"duration":58,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:48:06.069Z"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:54:38.077Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:54:38.078Z","userName":"FARAZ","userType":"Teacher"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T14:54:38.092Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:54:38.093Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:54:40.943Z","userName":"FARAZ","userType":"Teacher"}
+{"duration":97,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T14:56:15.279Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":97,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T14:56:15.281Z"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T14:59:29.957Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:59:29.957Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:59:29.965Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:59:43.863Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:59:43.872Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:59:46.687Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T14:59:46.738Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":5,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T14:59:52.014Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":22,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T14:59:52.014Z"}
+{"duration":12,"level":"info","message":"User Left Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:59:55.447Z"}
+{"duration":317,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T14:59:55.447Z"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T15:25:04.335Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T15:25:04.335Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T15:25:04.347Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:16.758Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:16.758Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:16.762Z","userName":"FARAZ","userType":"Teacher"}
+{"duration":15,"level":"info","message":"User Left Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:31.876Z"}
+{"duration":15,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:31.876Z"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:50.230Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:50.230Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:50.254Z","userName":"FARAZ","userType":"Teacher"}
+{"duration":2,"level":"info","message":"User Left Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:52.324Z"}
+{"duration":2,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:25:52.324Z"}
+{"duration":55,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T15:25:59.700Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":55,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T15:25:59.701Z"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:30:33.848Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:30:33.849Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:30:35.018Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:30:35.050Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:30:36.135Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:30:36.387Z","userName":"FARAZ","userType":"Teacher"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T15:30:36.516Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T15:30:36.516Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:31:57.133Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:31:57.134Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:31:57.159Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:31:58.130Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:31:58.156Z","userName":"FARAZ","userType":"Teacher"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T15:31:58.174Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T15:31:58.176Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:32:02.125Z","userName":"FARAZ","userType":"Teacher"}
+{"duration":918,"level":"info","message":"User Left Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:47:20.272Z"}
+{"duration":923,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:47:20.273Z"}
+{"duration":922,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T15:47:20.281Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":922,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T15:47:20.281Z"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T15:48:00.972Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T15:48:00.973Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"initiator":{"userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userName":"FARAZ","userType":"Teacher"}],"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:48:00.981Z"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:48:00.982Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:48:00.999Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:48:01.008Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:48:01.054Z","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:48:01.059Z","userName":"FARAZ","userType":"Teacher"}
+{"duration":553,"level":"info","message":"User Left Session","sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:57:13.686Z"}
+{"duration":553,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T15:57:13.687Z"}
+{"duration":625,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T15:58:26.024Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":625,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T15:58:26.024Z"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T16:16:46.180Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T16:16:46.184Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T16:16:48.101Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":364,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T16:22:52.311Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":366,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T16:22:52.314Z"}
+{"initiator":{"userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}],"sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:28:52.979Z"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:28:52.979Z","userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:28:52.984Z","userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}
+{"duration":2,"level":"info","message":"User Left Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:28:54.704Z","userId":"696a4dc6f8a5b9d4fbd969ae"}
+{"duration":2,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:28:54.705Z"}
+{"initiator":{"userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}],"sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:47:46.860Z"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:47:46.861Z","userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:47:46.863Z","userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:47:56.421Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:47:56.436Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":55,"level":"info","message":"User Left Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:48:51.789Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":72,"level":"info","message":"User Left Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:48:58.476Z","userId":"696a4dc6f8a5b9d4fbd969ae"}
+{"duration":72,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:48:58.476Z"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T16:51:23.139Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T16:51:23.140Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T16:51:23.168Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"initiator":{"userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}],"sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:51:48.201Z"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:51:48.202Z","userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:51:48.205Z","userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}
+{"duration":29,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T16:51:52.209Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":29,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T16:51:52.209Z"}
+{"duration":13,"level":"info","message":"User Left Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:01.465Z","userId":"696a4dc6f8a5b9d4fbd969ae"}
+{"duration":13,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:01.465Z"}
+{"initiator":{"userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"},"level":"info","message":"Session Started","participants":[{"userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}],"sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:13.011Z"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:13.012Z","userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:13.148Z","userId":"696a4dc6f8a5b9d4fbd969ae","userName":"FARAZ","userType":"Teacher"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:18.290Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:18.346Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":4,"level":"info","message":"User Left Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:22.643Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":20,"level":"info","message":"User Left Session","sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:32.975Z","userId":"696a4dc6f8a5b9d4fbd969ae"}
+{"duration":20,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"room-696a4954f8a5b9d4fbd969aa","timestamp":"2026-01-16T16:52:32.975Z"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T16:54:50.551Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T16:54:50.552Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T16:54:50.575Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":82,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T16:56:12.268Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":82,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T16:56:12.269Z"}
+{"initiator":{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"},"level":"info","message":"Session Started","participants":[{"userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}],"sessionId":"1","timestamp":"2026-01-16T16:56:14.463Z"}
+{"level":"info","message":"User Joined Session","sessionId":"1","timestamp":"2026-01-16T16:56:14.463Z","userId":"696a4954f8a5b9d4fbd969aa","userName":"AWAIS NIAZ SHAIKH","userType":"Student"}
+{"duration":3,"level":"info","message":"User Left Session","sessionId":"1","timestamp":"2026-01-16T16:56:17.891Z","userId":"696a4954f8a5b9d4fbd969aa"}
+{"duration":3,"level":"info","message":"Session Ended","participants":0,"peakParticipants":0,"sessionId":"1","timestamp":"2026-01-16T16:56:17.891Z"}

@@ -1,0 +1,30 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "/media/data/Client project/muzammil delivered project/frontend/al-quran-institute-online-backend/logs/.b81198abaa49b82ad8148d028ad0a1990be726a3-audit.json",
+    "files": [
+        {
+            "date": 1768252422391,
+            "name": "/media/data/Client project/muzammil delivered project/frontend/al-quran-institute-online-backend/logs/rejections-2026-01-13.log",
+            "hash": "c6ef7502b20f4907e700daa3964632f92ee8c388d6c4333301d83a3d3f8041b5"
+        },
+        {
+            "date": 1768503027641,
+            "name": "/media/data/Client project/muzammil delivered project/frontend/al-quran-institute-online-backend/logs/rejections-2026-01-15.log",
+            "hash": "b2ff9a10a4ef932e2308e8070e905ab8c725798542c9226c9b0ff01c47f57b9c"
+        },
+        {
+            "date": 1768503630486,
+            "name": "/media/data/Client project/muzammil delivered project/frontend/al-quran-institute-online-backend/logs/rejections-2026-01-16.log",
+            "hash": "dffbfc3a81d02be7d0be25bf69eb979b87524318892cf40ccb38e606ad42a9fd"
+        },
+        {
+            "date": 1768591099756,
+            "name": "/media/data/Client project/muzammil delivered project/frontend/al-quran-institute-online-backend/logs/rejections-2026-01-17.log",
+            "hash": "923a75bbec169b935523bcedb248cc9caa856895e440a2131eaa09780dd8fd50"
+        }
+    ],
+    "hashType": "sha256"
+}

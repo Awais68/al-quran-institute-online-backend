@@ -1,72 +1,56 @@
 import express from "express";
 import sendResponse from "../helper/sendResponse.js";
 import { Contact, ContactSchema } from "../models/contactSchema.js";
-import nodemailer from "nodemailer";
 import cors from "cors";
 import sendMail from "../utils/sendMail.js";
+import "dotenv/config";
 
 const app = express();
 app.use(cors());
 
 const contactRouter = express.Router();
 
-const ADMIN_EMAIL = "awaisniaz720@gmail.com"; // Admin email
-
-// Function to send email to admin (if needed elsewhere)
-const sendAdminEmail = async (userEmail) => {
-  try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "bfunter87@gmail.com",
-        pass: "ppvssaxzxtqpvtum",
-      },
-    });
-
-    const info = await transporter.sendMail({
-      from: '"Al-Quran Institute Online"<codetheagent1@gmail.com>', // sender
-      to: ADMIN_EMAIL, // only one 'to' property
-      subject: "Successfull New User Registration",
-      html: `<b>New user registered with email: ${userEmail}</b><br>
-      <p>Registered at: ${new Date().toISOString()}</p>`,
-    });
-
-    return true;
-  } catch (error) {
-    console.error("Error sending email to admin:", error);
-    return false;
-  }
-};
-
 contactRouter.post("/", async (req, res) => {
   try {
-    const { error, value } = ContactSchema.validate(req.body);
+    const { error, value } = ContactSchema.validate(req.body, { abortEarly: false });
     if (error) {
-      return sendResponse(res, 400, null, true, error.message);
+      const errors = error.details.map(detail => detail.message);
+      return sendResponse(res, 400, null, true, errors.join(', '));
     }
 
     const existingContact = await Contact.findOne({ email: value.email });
     if (existingContact) {
-      return sendResponse(res, 409, null, true, "User already exists");
+      return sendResponse(res, 409, null, true, "Contact form already submitted with this email");
     }
 
     const newContact = new Contact(value);
     await newContact.save();
 
     // Send mail to admin
-    await sendMail(
-      "New Student Registered",
-      `<b>Name:</b> ${value.name}<br><b>Email:</b> ${value.email}<br><b>Phone:</b> ${value.phone}<br><b>Subject:</b> ${value.subject}<br><b>Message:</b> ${value.message}`
+    const emailSent = await sendMail(
+      "New Contact Form Submission - Al-Quran Institute Online",
+      `<b>New Contact Form Submission:</b><br>
+      <b>Name:</b> ${value.name}<br>
+      <b>Email:</b> ${value.email}<br>
+      <b>Phone:</b> ${value.phone}<br>
+      <b>Subject:</b> ${value.subject}<br>
+      <b>Message:</b> ${value.message}<br>
+      <b>Submission Time:</b> ${new Date().toISOString()}`
     );
+
+    if (!emailSent) {
+      console.warn("Email to admin failed to send, but contact form was saved.");
+    }
 
     sendResponse(
       res,
       201,
       newContact,
       false,
-      "User's message received successfully"
+      "Contact form submitted successfully"
     );
   } catch (err) {
+    console.error("Contact form error:", err);
     sendResponse(
       res,
       500,

@@ -1,12 +1,13 @@
 import nodemailer from "nodemailer";
+import "dotenv/config";
 
-const sendMail = async (subject, message, to = "aqionline786@gmail.com") => {
+const sendMail = async (subject, message, to = process.env.EMAIL_ADMIN || "aqionline786@gmail.com") => {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "aqionline786@gmail.com", // apna email
-        pass: "cics roat rbyp viau", // apna app password
+        user: process.env.EMAIL_SERVICE_USER,
+        pass: process.env.EMAIL_SERVICE_PASS,
       },
     });
 
