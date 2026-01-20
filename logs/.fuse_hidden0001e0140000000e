@@ -736,4 +736,3 @@
 {"level":"info","message":"Socket.IO initialized for video sessions","timestamp":"2026-01-20 20:43:00"}
 {"level":"info","message":"Server is running on port 4000","timestamp":"2026-01-20 20:43:00"}
 {"level":"info","message":"API documentation available at http://localhost:4000/api-docs","timestamp":"2026-01-20 20:43:00"}
-{"level":"info","message":"Socket.IO initialized for video sessions","timestamp":"2026-01-20 21:55:54"}
