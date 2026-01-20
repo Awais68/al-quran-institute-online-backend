@@ -6,7 +6,7 @@ let io;
 export const initializeSocketIO = (server) => {
   io = new Server(server, {
     cors: {
-      origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+      origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
       credentials: true
     }
   });
@@ -36,9 +36,24 @@ export const initializeSocketIO = (server) => {
           roomId,
           teacherName,
         });
-        logger.info('Call notification sent', { studentId, teacherName, roomId });
+        logger.info('Call notification sent to student', { studentId, teacherName, roomId });
       } else {
         logger.warn('Student not registered', { studentId });
+      }
+    });
+
+    // Notify teacher about incoming call from student
+    socket.on('call-teacher', ({ teacherId, studentName, roomId }) => {
+      const teacherSocket = registeredUsers.get(teacherId);
+      if (teacherSocket) {
+        io.to(teacherSocket.socketId).emit('incoming-call', {
+          from: socket.id,
+          roomId,
+          studentName,
+        });
+        logger.info('Call notification sent to teacher', { teacherId, studentName, roomId });
+      } else {
+        logger.warn('Teacher not registered', { teacherId });
       }
     });
 

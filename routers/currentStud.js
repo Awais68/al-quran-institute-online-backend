@@ -32,7 +32,7 @@ router.get("/currentStudent", authorization, async (req, res) => {
 
 router.get("/getCurrentUser", authorization, async (req, res) => {
   try {
-    const currentUser = await User.findById(req.user.id).select("-password");
+    const currentUser = await User.findById(req.user._id).select("-password");
     if (!currentUser) {
       return sendResponse(res, 404, null, true, "User not found");
     }
