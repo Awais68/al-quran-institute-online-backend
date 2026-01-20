@@ -1,24 +1,55 @@
 import express from "express";
 import sendResponse from "../helper/sendResponse.js";
-// import Student from "../models/Students.js";
-import authorization from "../middlewares/authtication.js";
 import register from "../models/user.js";
 
 const router = express.Router();
 
+// Get all students with pagination
 router.get("/getAllStudents", async (req, res) => {
   try {
-    const student = await register.find();
-    sendResponse(res, 200, student, false, "Student fateched Successfully");
+    // Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    // Filtering
+    const filter = {};
+    if (req.query.course) {
+      filter.course = req.query.course;
+    }
+    if (req.query.role) {
+      filter.role = req.query.role;
+    }
+    if (req.query.country) {
+      filter.country = req.query.country;
+    }
+
+    // Sorting
+    const sort = req.query.sort || '-createdAt';
+
+    const students = await register
+      .find(filter)
+      .select("-password") // Don't return passwords
+      .sort(sort)
+      .skip(skip)
+      .limit(limit);
+
+    const total = await register.countDocuments(filter);
+
+    sendResponse(res, 200, {
+      students,
+      pagination: {
+        currentPage: page,
+        totalPages: Math.ceil(total / limit),
+        totalStudents: total,
+        hasNext: page < Math.ceil(total / limit),
+        hasPrev: page > 1
+      }
+    }, false, "Students fetched successfully");
   } catch (error) {
-    sendResponse(res, 400, null, true, "Something Went Wrong" + error.message);
+    console.error("Error fetching students:", error);
+    sendResponse(res, 500, null, true, "Something went wrong: " + error.message);
   }
 });
-
-// router.post("/", authenticateAdmin, async (req, res) => {
-//   const student = new student(req.body);
-//   student = await student.save();
-//   sendResponse(res, 20, student, false, "Student added Successfully");
-// });
 
 export default router;
