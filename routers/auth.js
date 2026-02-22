@@ -222,6 +222,11 @@ router.post("/signup", async (req, res) => {
       password: hashedPassword,
       status: userStatus,
     };
+
+    // Handle date conversion for dob if it exists and is a string
+    if (value.dob && typeof value.dob === 'string') {
+      userData.dob = new Date(value.dob);
+    }
     
     // Only add roll_no if it's defined (for students)
     if (rollNumber !== undefined) {

@@ -60,8 +60,7 @@ const Registerschema = new Schema(
       max: [120, 'Age cannot exceed 120']
     },
     dob: {
-      type: String,
-      trim: true,
+      type: Date,
       required: function() {
         return this.role === 'Student';
       }
