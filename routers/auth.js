@@ -5,13 +5,10 @@ import Joi from "joi";
 import User from "../models/user.js";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import cors from "cors";
 import Counter from "../models/counterSchema.js";
 import sendMail from "../utils/sendMail.js";
 import { createSendToken } from "../utils/jwt.js";
 
-const app = express();
-app.use(cors());
 const router = express.Router();
 
 // Stronger password validation
