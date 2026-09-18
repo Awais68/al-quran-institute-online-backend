@@ -6,11 +6,24 @@ import { storage } from "../config/cloudinary.js";
 const uploadRouter = express.Router();
 
 // Multer setup
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 },
+});
 
-// Upload route
-uploadRouter.post("/upload", upload.single("image"), async (req, res) => {
+// Upload route.
+// The router is mounted at "/upload" in index.js, so the handler path must be
+// "/" — the clients POST to BASE_URL + "/upload". "/upload" is kept as an alias
+// for older clients that hit the previous "/upload/upload" path.
+uploadRouter.post(["/", "/upload"], upload.single("image"), async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: 'No image received. Send the file as the "image" field.',
+      });
+    }
+
     const { name } = req.body;
     const image = {
       name: name || req.file.originalname,
@@ -39,6 +52,26 @@ uploadRouter.get("/images", async (req, res) => {
       .status(500)
       .json({ message: "Error fetching images", error: error.message });
   }
+});
+
+// Multer error handling (file too large, invalid format, etc.)
+uploadRouter.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    const message =
+      err.code === "LIMIT_FILE_SIZE"
+        ? "Image is too large. Maximum size is 10MB."
+        : err.message;
+    // Multer aborts mid-upload, so the client may still be streaming the body.
+    // Drain it before answering, otherwise Node resets the socket and the
+    // browser reports a generic network error instead of this message.
+    req.unpipe();
+    req.resume();
+    return res.status(400).json({ success: false, message });
+  }
+  if (err && err.message) {
+    return res.status(400).json({ success: false, message: err.message });
+  }
+  next(err);
 });
 
 export default uploadRouter;
