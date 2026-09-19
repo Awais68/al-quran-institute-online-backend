@@ -9,7 +9,7 @@ const Registerschema = new Schema(
       trim: true,
       required: [true, 'Name is required'],
       minlength: [3, 'Name must be at least 3 characters long'],
-      maxlength: [30, 'Name cannot exceed 30 characters']
+      maxlength: [50, 'Name cannot exceed 50 characters']
     },
     fatherName: {
       type: String,
@@ -151,6 +151,53 @@ const Registerschema = new Schema(
       trim: true,
       maxlength: [500, 'Bio cannot exceed 500 characters']
     },
+    // Teacher profile fields, merged in from the former standalone Teacher model.
+    specialization: {
+      type: [String],
+      enum: {
+        values: [
+          "Qaida",
+          "Tajweed",
+          "Nazra",
+          "Hifz",
+          "Namaz",
+          "Arabic",
+          "Islamic Studies"
+        ],
+        message: 'Specialization must be one of the available courses'
+      },
+      default: undefined,
+    },
+    availability: {
+      type: [String],
+      enum: {
+        values: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        message: 'Availability days must be valid days of the week'
+      },
+      default: undefined,
+    },
+    assignedStudents: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }],
+    joinDate: {
+      type: Date,
+      default: Date.now
+    },
+    // Set when an account is created by an admin with a generated password, so
+    // the UI can force a password change on first login.
+    mustResetPassword: {
+      type: Boolean,
+      default: false
+    },
 
     password: {
       type: String,
@@ -245,13 +292,13 @@ const Registerschema = new Schema(
     },
     assignedTeacher: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Teacher'
+      ref: 'User'
     },
     status: {
       type: String,
       enum: {
-        values: ['active', 'inactive', 'pending'],
-        message: 'Status must be active, inactive, or pending'
+        values: ['active', 'inactive', 'pending', 'on-leave'],
+        message: 'Status must be active, inactive, pending, or on-leave'
       },
       default: 'pending'
     },
@@ -272,6 +319,8 @@ Registerschema.index({ course: 1 });
 Registerschema.index({ createdAt: 1 });
 Registerschema.index({ feeStatus: 1 });
 Registerschema.index({ status: 1 });
+Registerschema.index({ specialization: 1 });
+Registerschema.index({ assignedTeacher: 1 });
 
 const User = mongoose.model("User", Registerschema);
 
