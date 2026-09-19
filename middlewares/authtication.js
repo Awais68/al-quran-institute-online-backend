@@ -34,6 +34,12 @@ export default async function authenticate(req, res, next) {
       return sendResponse(res, 401, null, true, "User not found");
     }
 
+    // Enforced on every request, not just at login, so deactivating an account
+    // invalidates tokens that were already issued to it.
+    if (user.status === "inactive") {
+      return sendResponse(res, 403, null, true, "This account has been deactivated");
+    }
+
     req.user = user;
     return next();
   } catch (err) {
@@ -75,6 +81,10 @@ export function authenticateAdmin(req, res, next) {
       .then(user => {
         if (!user) {
           return sendResponse(res, 401, null, true, "User not found");
+        }
+
+        if (user.status === "inactive") {
+          return sendResponse(res, 403, null, true, "This account has been deactivated");
         }
 
         if (user.role !== "Admin") {

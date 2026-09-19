@@ -164,6 +164,34 @@ userRoutes.put("/admin/updateUser/:userId", authenticateAdmin, async (req, res) 
       return sendResponse(res, 400, null, true, errors.join(', '));
     }
 
+    // Never let the installation end up with zero admins: that locks everyone
+    // out of the admin panel and re-opens the first-admin bootstrap path in
+    // POST /auth/signup.
+    const target = await User.findById(req.params.userId).select("role status");
+    if (!target) {
+      return sendResponse(res, 404, null, true, "User not found");
+    }
+    const removesAdminRights =
+      target.role === "Admin" &&
+      ((value.role && value.role !== "Admin") ||
+        (value.status && value.status !== "active"));
+    if (removesAdminRights) {
+      const otherActiveAdmins = await User.countDocuments({
+        _id: { $ne: target._id },
+        role: "Admin",
+        status: "active",
+      });
+      if (otherActiveAdmins === 0) {
+        return sendResponse(
+          res,
+          400,
+          null,
+          true,
+          "This is the last active admin account. Promote another admin first."
+        );
+      }
+    }
+
     const user = await User.findByIdAndUpdate(
       req.params.userId,
       { $set: value },
@@ -184,6 +212,32 @@ userRoutes.put("/admin/updateUser/:userId", authenticateAdmin, async (req, res) 
 // Admin deletes a user
 userRoutes.delete("/admin/deleteUser/:userId", authenticateAdmin, async (req, res) => {
   try {
+    const target = await User.findById(req.params.userId).select("role");
+    if (!target) {
+      return sendResponse(res, 404, null, true, "User not found");
+    }
+
+    if (String(target._id) === String(req.user._id)) {
+      return sendResponse(res, 400, null, true, "You cannot delete your own account");
+    }
+
+    // Same reasoning as the update route: the last admin must stay.
+    if (target.role === "Admin") {
+      const otherAdmins = await User.countDocuments({
+        _id: { $ne: target._id },
+        role: "Admin",
+      });
+      if (otherAdmins === 0) {
+        return sendResponse(
+          res,
+          400,
+          null,
+          true,
+          "This is the last admin account and cannot be deleted."
+        );
+      }
+    }
+
     const user = await User.findByIdAndDelete(req.params.userId);
 
     if (!user) {

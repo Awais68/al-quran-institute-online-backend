@@ -11,6 +11,35 @@ import { createSendToken } from "../utils/jwt.js";
 
 const router = express.Router();
 
+/**
+ * Decides the role a public signup is allowed to create.
+ *
+ * Public registration may only ever create a Student. The single exception is
+ * bootstrapping the very first Admin on an empty installation — once any admin
+ * exists, privileged accounts can only be created by an authenticated admin
+ * (POST /teacher for teachers, PUT /user/admin/updateUser/:userId for roles).
+ *
+ * Returns { role } on success, or { error } with a message to reject with.
+ */
+const resolveSignupRole = async (requestedRole) => {
+  if (!requestedRole || requestedRole === "Student") {
+    return { role: "Student" };
+  }
+
+  if (requestedRole === "Admin") {
+    const adminCount = await User.countDocuments({ role: "Admin" });
+    if (adminCount === 0) {
+      // First admin on a fresh install — allowed, and activated immediately.
+      return { role: "Admin", bootstrap: true };
+    }
+  }
+
+  return {
+    error:
+      "Teacher and admin accounts cannot be self-registered. Ask an administrator to create the account.",
+  };
+};
+
 // Stronger password validation
 const passwordPattern =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -100,6 +129,10 @@ const Registerschema = Joi.object({
     .messages({
       "any.only": "Course must be one of the available courses",
     }),
+  // Accepted so the conditional rules below still resolve and so an explicit
+  // privileged request can be rejected with a clear message, but the value is
+  // NEVER trusted: the role actually stored is decided server-side in the
+  // handler by resolveSignupRole().
   role: Joi.string()
     .valid("Admin", "Student", "Teacher")
     .default("Student")
@@ -184,11 +217,18 @@ router.post("/signup", async (req, res) => {
       return sendResponse(res, 409, null, true, "User already exists with this email");
     }
 
+    // The client does not get to pick its own role.
+    const resolved = await resolveSignupRole(value.role);
+    if (resolved.error) {
+      return sendResponse(res, 403, null, true, resolved.error);
+    }
+    const role = resolved.role;
+
     const hashedPassword = await bcrypt.hash(value.password, 12);
 
     // Generate roll number only for students
     let rollNumber;
-    if (value.role === 'Student') {
+    if (role === 'Student') {
       const getNextRollNo = async () => {
         const counter = await Counter.findOneAndUpdate(
           { id: "roll_no" },
@@ -200,24 +240,13 @@ router.post("/signup", async (req, res) => {
       rollNumber = await getNextRollNo();
     }
 
-    // Check if this is the first admin
-    let userStatus = 'pending';
-    if (value.role === 'Admin') {
-      const existingAdminCount = await User.countDocuments({ role: 'Admin' });
-      if (existingAdminCount === 0) {
-        // First admin - automatically activate
-        userStatus = 'active';
-      }
-    } else {
-      // Students and Teachers are active by default
-      userStatus = 'active';
-    }
-
-    // Create user object, only include roll_no if it exists
+    // Create user object, only include roll_no if it exists.
+    // `role` is set from the server-resolved value, never from the request body.
     const userData = {
       ...value,
+      role,
       password: hashedPassword,
-      status: userStatus,
+      status: 'active',
     };
 
     // Handle date conversion for dob if it exists and is a string
@@ -280,6 +309,18 @@ router.post("/login", async (req, res) => {
     const isPasswordValid = await bcrypt.compare(value.password, user.password);
     if (!isPasswordValid) {
       return sendResponse(res, 401, null, true, "Invalid email or password");
+    }
+
+    // Checked only after the password, so this cannot be used to probe which
+    // accounts exist.
+    if (user.status === "inactive") {
+      return sendResponse(
+        res,
+        403,
+        null,
+        true,
+        "This account has been deactivated. Please contact the administrator."
+      );
     }
 
     // Send success response with token
