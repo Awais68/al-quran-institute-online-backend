@@ -26,7 +26,7 @@ import messageRouter from "./routers/message.js";
 import notificationRouter from "./routers/notification.js";
 import sessionRouter from "./routers/session.js";
 import { initializeSocketIO } from "./utils/socket.js";
-import ALLOWED_ORIGINS from "./config/allowedOrigins.js";
+import { isAllowedOrigin } from "./config/allowedOrigins.js";
 import { globalErrorHandler, notFoundHandler } from "./middlewares/errorHandler.js";
 import {
   securityHeaders,
@@ -55,18 +55,12 @@ app.use(sanitizeXSS);               // Sanitize data to prevent XSS
 app.use(preventParamPollution);     // Prevent parameter pollution
 
 // CORS Configuration - Must specify origin when using credentials
-const allowedOrigins = ALLOWED_ORIGINS;
-
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+    // Rejecting with an Error surfaced as a 500 with no CORS headers at all,
+    // which reads as "the backend is broken" in the browser console instead of
+    // "this origin is not allowed". Deny by omitting the header instead.
+    callback(null, isAllowedOrigin(origin));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],

@@ -2,14 +2,16 @@ import { Server } from 'socket.io';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import logger from './logger.js';
-import ALLOWED_ORIGINS from '../config/allowedOrigins.js';
+import { isAllowedOrigin } from '../config/allowedOrigins.js';
 
 let io;
 
 export const initializeSocketIO = (server) => {
   io = new Server(server, {
     cors: {
-      origin: ALLOWED_ORIGINS,
+      // Same predicate the HTTP server uses, so a preview deployment that can
+      // call the REST API can also open a socket.
+      origin: (origin, callback) => callback(null, isAllowedOrigin(origin)),
       credentials: true
     }
   });
