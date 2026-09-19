@@ -25,6 +25,7 @@ import feeManagementRouter from "./routers/feeManagement.js";
 import messageRouter from "./routers/message.js";
 import notificationRouter from "./routers/notification.js";
 import sessionRouter from "./routers/session.js";
+import webrtcRouter from "./routers/webrtc.js";
 import { initializeSocketIO } from "./utils/socket.js";
 import { isAllowedOrigin } from "./config/allowedOrigins.js";
 import { globalErrorHandler, notFoundHandler } from "./middlewares/errorHandler.js";
@@ -120,6 +121,7 @@ app.use("/fees", feeManagementRouter);
 app.use("/messages", messageRouter);
 app.use("/notifications", notificationRouter);
 app.use("/sessions", sessionRouter);
+app.use("/webrtc", webrtcRouter);
 
 // Catch 404 and forward to error handler
 app.use(notFoundHandler);

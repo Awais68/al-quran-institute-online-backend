@@ -100,6 +100,15 @@ export const initializeSocketIO = (server) => {
 
     // User joins a video session room
     socket.on('join-session', ({ sessionId, userId, userName, userType }) => {
+      // The handshake token is authoritative; the payload is only a hint.
+      const joiningUserId = socket.data.userId || userId;
+      if (!sessionId || !joiningUserId) {
+        logger.warn('join-session without a session or user id', { socketId: socket.id, sessionId });
+        return;
+      }
+      userId = joiningUserId;
+      socket.data.sessionId = sessionId;
+
       socket.join(sessionId);
       
       if (!rooms.has(sessionId)) {
@@ -137,10 +146,14 @@ export const initializeSocketIO = (server) => {
       // Send list of existing participants
       const participants = Array.from(rooms.get(sessionId))
         .filter(id => id !== userId)
-        .map(id => ({
-          userId: id,
-          ...userSockets.get(id)
-        }));
+        .map(id => {
+          const known = userSockets.get(id);
+          return known ? { userId: id, ...known } : null;
+        })
+        // A participant with no live socket is a leftover from a crashed tab.
+        // Sending it makes the client open a peer connection keyed by
+        // `undefined` that nothing can ever answer.
+        .filter(Boolean);
 
       socket.emit('existing-participants', participants);
 
@@ -192,8 +205,10 @@ export const initializeSocketIO = (server) => {
     });
 
     // Leave session
-    socket.on('leave-session', ({ sessionId, userId, userName }) => {
-      handleUserLeave(socket, sessionId, userId, userName);
+    socket.on('leave-session', ({ sessionId, userId, userName } = {}) => {
+      const room = sessionId || socket.data.sessionId;
+      const leavingId = socket.data.userId || userId;
+      handleUserLeave(socket, room, leavingId, userName || userSockets.get(leavingId)?.userName);
     });
 
     socket.on('disconnect', () => {
@@ -214,7 +229,11 @@ export const initializeSocketIO = (server) => {
               handleUserLeave(socket, sessionId, userId, data.userName);
             }
           }
-          userSockets.delete(userId);
+          // Only if this socket still owns the mapping: when the same user has
+          // a second tab open it has already overwritten the entry.
+          if (userSockets.get(userId)?.socketId === socket.id) {
+            userSockets.delete(userId);
+          }
           break;
         }
       }
@@ -223,6 +242,11 @@ export const initializeSocketIO = (server) => {
   });
 
   function handleUserLeave(socket, sessionId, userId, userName) {
+    if (!sessionId || !userId) {
+      logger.warn('Leave requested without a session or user id', { socketId: socket.id, sessionId, userId });
+      return;
+    }
+
     const joinTime = userJoinTimes.get(`${sessionId}-${userId}`);
     const duration = joinTime ? Date.now() - joinTime : 0;
     
@@ -256,7 +280,10 @@ export const initializeSocketIO = (server) => {
     }
     
     userJoinTimes.delete(`${sessionId}-${userId}`);
-    socket.to(sessionId).emit('user-left', { userId, userName });
+    // socketId matters as much as userId: peers key their RTCPeerConnections by
+    // socket id, so without it the remote side keeps a dead connection and a
+    // frozen video tile.
+    socket.to(sessionId).emit('user-left', { userId, userName, socketId: socket.id });
     logger.info(`User left session`, { userName, sessionId, remainingParticipants: rooms.get(sessionId)?.size || 0 });
   }
 
