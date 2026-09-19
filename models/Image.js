@@ -27,8 +27,8 @@ const imageSchema = new mongoose.Schema({
   timestamps: true // Add createdAt and updatedAt
 });
 
-// Add indexes for frequently queried fields
-imageSchema.index({ publicId: 1 });
+// Add indexes for frequently queried fields.
+// `publicId` is not listed here: `unique: true` on the field already builds it.
 imageSchema.index({ uploadedAt: -1 });
 
 const Image = mongoose.model("Image", imageSchema);

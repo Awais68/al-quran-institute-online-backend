@@ -14,8 +14,8 @@ const counterSchema = new mongoose.Schema({
   timestamps: true // Add timestamps for tracking when counters are updated
 });
 
-// Add index for the id field for faster lookups
-counterSchema.index({ id: 1 });
+// No explicit index here: `unique: true` on `id` already builds the `id_1`
+// index, and declaring it twice makes Mongoose log a duplicate-index warning.
 
 const Counter = mongoose.model("Counter", counterSchema);
 

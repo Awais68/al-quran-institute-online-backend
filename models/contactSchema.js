@@ -45,8 +45,8 @@ const ContactSchemaMongoose = new Schema(
   }
 );
 
-// Add indexes for frequently queried fields
-ContactSchemaMongoose.index({ email: 1 });
+// Add indexes for frequently queried fields.
+// `email` is not listed here: `unique: true` on the field already builds it.
 ContactSchemaMongoose.index({ createdAt: 1 });
 
 const Contact = mongoose.model("Contact", ContactSchemaMongoose);
