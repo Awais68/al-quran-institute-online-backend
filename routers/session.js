@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import sendResponse from "../helper/sendResponse.js";
 import authorization from "../middlewares/authtication.js";
 import Session from "../models/Session.js";
@@ -13,12 +14,13 @@ sessionRouter.get("/", authorization, async (req, res) => {
     
     const filter = {};
     
-    // Filter based on user role
+    // Filter based on user role. An admin sees the whole schedule; everyone
+    // else sees only their own sessions.
     if (req.user.role === "Teacher") {
       filter.teacherId = req.user._id;
     } else if (req.user.role === "Student") {
       filter.studentId = req.user._id;
-    } else {
+    } else if (req.user.role !== "Admin") {
       return sendResponse(res, 403, null, true, "Access denied");
     }
 
@@ -78,21 +80,33 @@ sessionRouter.post("/", authorization, async (req, res) => {
       return sendResponse(res, 403, null, true, "Only teachers can schedule sessions");
     }
 
-    const { studentId, course, scheduledDate, duration, topic, notes } = req.body;
+    const { studentId, teacherId, course, scheduledDate, duration, topic, notes } = req.body;
 
     if (!studentId || !course || !scheduledDate) {
       return sendResponse(res, 400, null, true, "Missing required fields");
     }
 
+    // A teacher always schedules for themselves. An admin schedules on behalf
+    // of a teacher and must say which one - otherwise the admin was silently
+    // recorded as the teacher of the class.
+    const sessionTeacherId = req.user.role === "Admin" ? teacherId : req.user._id;
+    if (!sessionTeacherId) {
+      return sendResponse(res, 400, null, true, "teacherId is required when an admin schedules a session");
+    }
+
+    // The room id is the session id, so both sides land in the same room from
+    // any entry point (dashboard button, calendar link or the emailed link).
+    const sessionId = new mongoose.Types.ObjectId();
     const session = await Session.create({
-      teacherId: req.user._id,
+      _id: sessionId,
+      teacherId: sessionTeacherId,
       studentId,
       course,
       scheduledDate: new Date(scheduledDate),
       duration: duration || 60,
       topic,
       notes,
-      meetingLink: `/video-call/room-${studentId}`,
+      meetingLink: `/video-call/${sessionId.toString()}`,
     });
 
     const populatedSession = await Session.findById(session._id)

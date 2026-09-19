@@ -3,22 +3,21 @@ import multer from "multer";
 import sendResponse from "../helper/sendResponse.js";
 import authorization from "../middlewares/authtication.js";
 import Activity from "../models/Activity.js";
-import { storage } from "../config/cloudinary.js";
+import { mediaStorage } from "../config/cloudinary.js";
 
 const activityRouter = express.Router();
 
 // Multer setup for audio/video uploads
-const upload = multer({ 
-  storage,
+const upload = multer({
+  storage: mediaStorage,
   limits: {
     fileSize: 50 * 1024 * 1024, // 50MB limit
   },
   fileFilter: (req, file, cb) => {
-    const allowedAudioTypes = ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp3'];
-    const allowedVideoTypes = ['video/mp4', 'video/webm', 'video/ogg'];
-    const allowedTypes = [...allowedAudioTypes, ...allowedVideoTypes];
-    
-    if (allowedTypes.includes(file.mimetype)) {
+    // Browsers produce a long tail of container types (audio/webm from
+    // MediaRecorder, audio/x-m4a from iOS, video/quicktime from Safari), so
+    // match on the media class instead of an allow-list that keeps going stale.
+    if (file.mimetype.startsWith('audio/') || file.mimetype.startsWith('video/')) {
       cb(null, true);
     } else {
       cb(new Error('Invalid file type. Only audio and video files are allowed.'));

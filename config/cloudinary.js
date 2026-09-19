@@ -23,4 +23,15 @@ const storage = new CloudinaryStorage({
   },
 });
 
-export { cloudinary, storage };
+// Practice submissions are audio/video, which the image-only `storage` above
+// rejects (default resource_type is "image" and allowed_formats is image-only).
+// Cloudinary handles audio under the "video" resource type, so "auto" covers both.
+const mediaStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: (req, file) => ({
+    folder: "Practice",
+    resource_type: "auto",
+  }),
+});
+
+export { cloudinary, storage, mediaStorage };

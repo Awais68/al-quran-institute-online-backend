@@ -26,6 +26,7 @@ import messageRouter from "./routers/message.js";
 import notificationRouter from "./routers/notification.js";
 import sessionRouter from "./routers/session.js";
 import { initializeSocketIO } from "./utils/socket.js";
+import ALLOWED_ORIGINS from "./config/allowedOrigins.js";
 import { globalErrorHandler, notFoundHandler } from "./middlewares/errorHandler.js";
 import {
   securityHeaders,
@@ -42,8 +43,10 @@ const app = express();
 const httpServer = createServer(app);
 const PORT = process.env.PORT || 4000;
 
-// Initialize Socket.IO for video sessions
-initializeSocketIO(httpServer);
+// Initialize Socket.IO for video sessions. The instance is stashed on the app
+// so REST handlers can reach it via req.app.get("io") to push realtime events.
+const io = initializeSocketIO(httpServer);
+app.set("io", io);
 
 // Security Middlewares
 app.use(securityHeaders);           // Set security headers
@@ -52,13 +55,7 @@ app.use(sanitizeXSS);               // Sanitize data to prevent XSS
 app.use(preventParamPollution);     // Prevent parameter pollution
 
 // CORS Configuration - Must specify origin when using credentials
-const allowedOrigins = [
-  'http://localhost:3000', 
-  'http://localhost:3001', 
-  'http://localhost:3002',
-  'https://al-quran-institute-academy-frontend.vercel.app',
-  process.env.FRONTEND_URL
-].filter(Boolean);
+const allowedOrigins = ALLOWED_ORIGINS;
 
 app.use(cors({
   origin: (origin, callback) => {

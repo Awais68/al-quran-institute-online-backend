@@ -1,12 +1,15 @@
 import { Server } from 'socket.io';
+import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 import logger from './logger.js';
+import ALLOWED_ORIGINS from '../config/allowedOrigins.js';
 
 let io;
 
 export const initializeSocketIO = (server) => {
   io = new Server(server, {
     cors: {
-      origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
+      origin: ALLOWED_ORIGINS,
       credentials: true
     }
   });
@@ -18,43 +21,79 @@ export const initializeSocketIO = (server) => {
   const userJoinTimes = new Map();
   const registeredUsers = new Map(); // Map userId to socketId
 
+  // Identity comes from the JWT in the handshake, never from the client payload.
+  // Anonymous sockets are still allowed through (public pages open one before
+  // login) but they get no personal room and cannot impersonate anyone.
+  io.use((socket, next) => {
+    const token = socket.handshake.auth?.token;
+    if (!token) return next();
+
+    try {
+      const decoded = jwt.verify(token, process.env.AUTH_SECRET);
+      socket.data.userId = decoded.id;
+    } catch (error) {
+      logger.warn('Socket handshake token rejected', { socketId: socket.id, reason: error.message });
+    }
+    return next();
+  });
+
   io.on('connection', (socket) => {
-    logger.debug('User connected', { socketId: socket.id });
+    logger.debug('User connected', { socketId: socket.id, userId: socket.data.userId });
+
+    // Every authenticated socket joins a room named after its user id. REST
+    // handlers emit to that room (io.to(userId)) for messages, notifications
+    // and scheduled sessions, so those events need no socket id lookup.
+    if (socket.data.userId) {
+      socket.join(socket.data.userId);
+    }
 
     // Register user for receiving calls
     socket.on('register-user', ({ userId, userName, userType }) => {
-      registeredUsers.set(userId, { socketId: socket.id, userName, userType });
-      logger.info('User registered', { userId, userName, userType, socketId: socket.id });
+      // Trust the token over the payload when both are present.
+      const trustedId = socket.data.userId || userId;
+      if (!trustedId) {
+        logger.warn('register-user without a resolvable user id', { socketId: socket.id });
+        return;
+      }
+      socket.data.userId = trustedId;
+      socket.join(trustedId);
+      registeredUsers.set(trustedId, { socketId: socket.id, userName, userType });
+      logger.info('User registered', { userId: trustedId, userName, userType, socketId: socket.id });
     });
+
+    // Ring a user on every socket they have open. Targeting the per-user room
+    // instead of a single stored socket id means the callee is reachable from
+    // any page (and any tab), not only the one that emitted `register-user`.
+    const ringUser = async (targetUserId, payload, label) => {
+      if (!targetUserId) {
+        logger.warn('Call requested without a target user id', { label });
+        return;
+      }
+
+      const sockets = await io.in(targetUserId).fetchSockets();
+      if (sockets.length === 0) {
+        // Fall back to the legacy registry for clients that connect without a token.
+        const registered = registeredUsers.get(targetUserId);
+        if (!registered) {
+          logger.warn('Call target is offline', { label, targetUserId });
+          return;
+        }
+        io.to(registered.socketId).emit('incoming-call', { from: socket.id, ...payload });
+      } else {
+        io.to(targetUserId).emit('incoming-call', { from: socket.id, ...payload });
+      }
+
+      logger.info('Call notification sent', { label, targetUserId, ...payload });
+    };
 
     // Notify student about incoming call
     socket.on('call-student', ({ studentId, teacherName, roomId }) => {
-      const studentSocket = registeredUsers.get(studentId);
-      if (studentSocket) {
-        io.to(studentSocket.socketId).emit('incoming-call', {
-          from: socket.id,
-          roomId,
-          teacherName,
-        });
-        logger.info('Call notification sent to student', { studentId, teacherName, roomId });
-      } else {
-        logger.warn('Student not registered', { studentId });
-      }
+      ringUser(studentId, { roomId, teacherName }, 'call-student');
     });
 
     // Notify teacher about incoming call from student
     socket.on('call-teacher', ({ teacherId, studentName, roomId }) => {
-      const teacherSocket = registeredUsers.get(teacherId);
-      if (teacherSocket) {
-        io.to(teacherSocket.socketId).emit('incoming-call', {
-          from: socket.id,
-          roomId,
-          studentName,
-        });
-        logger.info('Call notification sent to teacher', { teacherId, studentName, roomId });
-      } else {
-        logger.warn('Teacher not registered', { teacherId });
-      }
+      ringUser(teacherId, { roomId, studentName }, 'call-teacher');
     });
 
     // User joins a video session room

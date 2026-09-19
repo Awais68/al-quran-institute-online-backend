@@ -5,6 +5,7 @@ import Joi from "joi";
 import User from "../models/user.js";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 import Counter from "../models/counterSchema.js";
 import sendMail from "../utils/sendMail.js";
 import { createSendToken } from "../utils/jwt.js";
@@ -394,6 +395,89 @@ router.post("/change-password", authorization, async (req, res) => {
   } catch (err) {
     console.error("Change password error:", err);
     sendResponse(res, 500, null, true, "Error changing password: " + err.message);
+  }
+});
+
+const RESET_TOKEN_TTL_MS = 60 * 60 * 1000; // 1 hour
+
+const hashResetToken = (token) =>
+  crypto.createHash("sha256").update(token).digest("hex");
+
+// Always answers 200 with the same text, whether or not the email exists, so
+// the endpoint cannot be used to enumerate registered accounts.
+const FORGOT_PASSWORD_REPLY =
+  "If an account exists for that email, a password reset link has been sent.";
+
+router.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email || typeof email !== "string") {
+      return sendResponse(res, 400, null, true, "Email is required");
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() });
+
+    if (user && user.status !== "inactive") {
+      const rawToken = crypto.randomBytes(32).toString("hex");
+      user.passwordResetToken = hashResetToken(rawToken);
+      user.passwordResetExpires = new Date(Date.now() + RESET_TOKEN_TTL_MS);
+      await user.save({ validateModifiedOnly: true });
+
+      const resetUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/reset-password?token=${rawToken}`;
+
+      await sendMail(
+        "Reset your Al-Quran Institute password",
+        `<p>Assalam o Alaikum ${user.name},</p>
+         <p>We received a request to reset your password. This link is valid for one hour:</p>
+         <p><a href="${resetUrl}">Reset my password</a></p>
+         <p>If you did not request this, you can ignore this email - your password stays unchanged.</p>`,
+        user.email
+      );
+    }
+
+    return sendResponse(res, 200, null, false, FORGOT_PASSWORD_REPLY);
+  } catch (err) {
+    console.error("Forgot password error:", err);
+    sendResponse(res, 500, null, true, "Error starting password reset: " + err.message);
+  }
+});
+
+router.post("/reset-password", async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+    if (!token || !newPassword) {
+      return sendResponse(res, 400, null, true, "Reset token and new password are required");
+    }
+    if (typeof newPassword !== "string" || !passwordPattern.test(newPassword)) {
+      return sendResponse(
+        res,
+        400,
+        null,
+        true,
+        "Password must contain at least 8 characters with uppercase, lowercase, number and special character"
+      );
+    }
+
+    const user = await User.findOne({
+      passwordResetToken: hashResetToken(token),
+      passwordResetExpires: { $gt: new Date() },
+    }).select("+password +passwordResetToken +passwordResetExpires");
+
+    if (!user) {
+      return sendResponse(res, 400, null, true, "This reset link is invalid or has expired");
+    }
+
+    user.password = await bcrypt.hash(newPassword, 12);
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    // A completed reset also clears any admin-forced temporary password.
+    user.mustResetPassword = false;
+    await user.save({ validateModifiedOnly: true });
+
+    return sendResponse(res, 200, null, false, "Password reset successfully. You can now log in.");
+  } catch (err) {
+    console.error("Reset password error:", err);
+    sendResponse(res, 500, null, true, "Error resetting password: " + err.message);
   }
 });
 

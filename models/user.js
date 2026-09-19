@@ -199,6 +199,17 @@ const Registerschema = new Schema(
       default: false
     },
 
+    // Forgot-password flow. Only the SHA-256 hash of the emailed token is
+    // stored, so a leaked database row cannot be replayed as a reset link.
+    passwordResetToken: {
+      type: String,
+      select: false,
+    },
+    passwordResetExpires: {
+      type: Date,
+      select: false,
+    },
+
     password: {
       type: String,
       trim: true,

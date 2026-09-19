@@ -148,4 +148,42 @@ messageRouter.get("/conversations", authorization, async (req, res) => {
   }
 });
 
+// Who the current user is allowed to message. The messages page used to call
+// admin-only endpoints to resolve a recipient, which 404'd or 403'd for every
+// non-admin; this returns the contact list scoped to the caller's own role.
+messageRouter.get("/contacts", authorization, async (req, res) => {
+  try {
+    const me = req.user;
+    const SELECT = "name email image role";
+    let contacts = [];
+
+    if (me.role === "Admin") {
+      contacts = await User.find({ _id: { $ne: me._id } }).select(SELECT).sort({ name: 1 });
+    } else if (me.role === "Teacher") {
+      const students = await User.find({
+        role: "Student",
+        $or: [
+          { assignedTeacher: me._id },
+          { _id: { $in: me.assignedStudents || [] } },
+        ],
+      })
+        .select(SELECT)
+        .sort({ name: 1 });
+      const admins = await User.find({ role: "Admin" }).select(SELECT).sort({ name: 1 });
+      contacts = [...students, ...admins];
+    } else {
+      const teacher = me.assignedTeacher
+        ? await User.findById(me.assignedTeacher).select(SELECT)
+        : null;
+      const admins = await User.find({ role: "Admin" }).select(SELECT).sort({ name: 1 });
+      contacts = [...(teacher ? [teacher] : []), ...admins];
+    }
+
+    sendResponse(res, 200, { contacts }, false, "Contacts fetched successfully");
+  } catch (error) {
+    console.error("Error fetching contacts:", error);
+    sendResponse(res, 500, null, true, "Error fetching contacts: " + error.message);
+  }
+});
+
 export default messageRouter;
