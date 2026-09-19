@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 import Counter from "../models/counterSchema.js";
 import sendMail from "../utils/sendMail.js";
 import { createSendToken } from "../utils/jwt.js";
+import { authorization } from "../middlewares/authtication.js";
 
 const router = express.Router();
 
@@ -334,6 +335,65 @@ router.post("/login", async (req, res) => {
       true,
       "An unexpected error occurred during login: " + err.message
     );
+  }
+});
+
+const changePasswordSchema = Joi.object({
+  currentPassword: Joi.string().required().messages({
+    "any.required": "Current password is required",
+  }),
+  newPassword: Joi.string().pattern(passwordPattern).required().messages({
+    "string.pattern.base":
+      "Password must contain at least 8 characters with uppercase, lowercase, number and special character",
+    "any.required": "New password is required",
+  }),
+});
+
+// Changing your own password. This is the only endpoint an account with
+// `mustResetPassword` can reach (see middlewares/authtication.js), so it is
+// also the exit from the forced-reset state an admin-created teacher starts in.
+router.post("/change-password", authorization, async (req, res) => {
+  try {
+    const { error, value } = changePasswordSchema.validate(req.body, {
+      abortEarly: false,
+    });
+    if (error) {
+      const errors = error.details.map((detail) => detail.message);
+      return sendResponse(res, 400, null, true, errors.join(", "));
+    }
+
+    // req.user arrives from the middleware without the password field.
+    const user = await User.findById(req.user._id).select("+password");
+    if (!user) {
+      return sendResponse(res, 404, null, true, "User not found");
+    }
+
+    const matches = await bcrypt.compare(value.currentPassword, user.password);
+    if (!matches) {
+      return sendResponse(res, 401, null, true, "Current password is incorrect");
+    }
+
+    if (value.currentPassword === value.newPassword) {
+      return sendResponse(
+        res,
+        400,
+        null,
+        true,
+        "The new password must be different from the current one"
+      );
+    }
+
+    user.password = await bcrypt.hash(value.newPassword, 12);
+    user.mustResetPassword = false;
+    // Legacy documents predate some of the current schema rules; only validate
+    // what this request actually touches.
+    await user.save({ validateModifiedOnly: true });
+
+    // Hand back a fresh token so the client can continue with the same session.
+    createSendToken(user, 200, res);
+  } catch (err) {
+    console.error("Change password error:", err);
+    sendResponse(res, 500, null, true, "Error changing password: " + err.message);
   }
 });
 

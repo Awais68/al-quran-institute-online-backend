@@ -3,6 +3,28 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import User from "../models/user.js";
 
+// Accounts created by an admin get a generated password and `mustResetPassword`
+// set. Until that password is changed the token is only good for the
+// change-password endpoint itself — everything else answers 403 with
+// PASSWORD_RESET_REQUIRED so the client knows where to send the user.
+// The auth router is mounted at three paths (see index.js), hence the variants.
+const PASSWORD_RESET_EXEMPT = new Set([
+  "/auth/change-password",
+  "/signup/change-password",
+  "/login/change-password",
+]);
+
+const needsPasswordReset = (req, user) =>
+  user.mustResetPassword === true &&
+  !PASSWORD_RESET_EXEMPT.has(`${req.baseUrl}${req.path}`.replace(/\/+$/, ""));
+
+const PASSWORD_RESET_RESPONSE = [
+  403,
+  { code: "PASSWORD_RESET_REQUIRED" },
+  true,
+  "You must change your password before using this account.",
+];
+
 // Fixed the default export function name and logic
 export default async function authenticate(req, res, next) {
   try {
@@ -38,6 +60,10 @@ export default async function authenticate(req, res, next) {
     // invalidates tokens that were already issued to it.
     if (user.status === "inactive") {
       return sendResponse(res, 403, null, true, "This account has been deactivated");
+    }
+
+    if (needsPasswordReset(req, user)) {
+      return sendResponse(res, ...PASSWORD_RESET_RESPONSE);
     }
 
     req.user = user;
@@ -89,6 +115,10 @@ export function authenticateAdmin(req, res, next) {
 
         if (user.role !== "Admin") {
           return sendResponse(res, 403, null, true, "Admin access required");
+        }
+
+        if (needsPasswordReset(req, user)) {
+          return sendResponse(res, ...PASSWORD_RESET_RESPONSE);
         }
 
         req.user = user;

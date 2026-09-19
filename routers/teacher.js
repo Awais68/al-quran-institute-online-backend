@@ -5,6 +5,7 @@ import sendResponse from "../helper/sendResponse.js";
 import authorization, { authenticateAdmin } from "../middlewares/authtication.js";
 import User from "../models/user.js";
 import Joi from "joi";
+import sendMail from "../utils/sendMail.js";
 
 const teacherRoutes = express.Router();
 
@@ -103,6 +104,27 @@ const generatePassword = () => {
     .split("")
     .sort(() => crypto.randomInt(3) - 1)
     .join("");
+};
+
+// Emails a newly created teacher their login details. Returns whether the mail
+// went out; the caller decides what to tell the admin.
+const sendCredentialsMail = async (teacher, plainPassword) => {
+  const loginUrl = `${(process.env.FRONTEND_URL || "").replace(/\/$/, "")}/login`;
+
+  return sendMail(
+    "Your teacher account - Al-Quran Institute Online",
+    `<p>Assalam-o-Alaikum ${teacher.name},</p>
+     <p>An account has been created for you at Al-Quran Institute Online.</p>
+     <p>
+       <b>Email:</b> ${teacher.email}<br>
+       <b>Temporary password:</b> ${plainPassword}
+     </p>
+     <p>You will be asked to choose a new password the first time you sign in${
+       loginUrl.startsWith("http") ? ` at <a href="${loginUrl}">${loginUrl}</a>` : ""
+     }.</p>
+     <p>Please do not share this email with anyone.</p>`,
+    teacher.email
+  );
 };
 
 // Get all teachers (Admin only)
@@ -235,14 +257,27 @@ teacherRoutes.post("/", authenticateAdmin, async (req, res) => {
 
     const { password, ...teacherWithoutPassword } = newTeacher.toObject();
 
+    // Mail the credentials to the teacher. Awaited, not fire-and-forget: if the
+    // mail does not go out the admin has to be told, because the generated
+    // password exists nowhere else.
+    const emailSent = await sendCredentialsMail(newTeacher, plainPassword);
+
     sendResponse(
       res,
       201,
-      { ...teacherWithoutPassword, ...(generatedPassword ? { generatedPassword } : {}) },
+      {
+        ...teacherWithoutPassword,
+        emailSent,
+        // Only surfaced when the mail failed, so the admin can pass the password
+        // on by hand. On success it is never returned.
+        ...(generatedPassword && !emailSent ? { generatedPassword } : {}),
+      },
       false,
-      generatedPassword
-        ? "Teacher created successfully. Share the generated password — it will not be shown again."
-        : "Teacher created successfully"
+      emailSent
+        ? "Teacher created successfully. Login details have been emailed to the teacher."
+        : generatedPassword
+          ? "Teacher created, but the email could not be sent. Share the generated password manually — it will not be shown again."
+          : "Teacher created, but the email could not be sent. Share the login details manually."
     );
   } catch (err) {
     console.error("Error creating teacher:", err);
