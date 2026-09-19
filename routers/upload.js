@@ -8,7 +8,8 @@ const uploadRouter = express.Router();
 // Multer setup
 const upload = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 },
+  // Keep in sync with MAX_IMAGE_BYTES in the frontend's signup/account page.
+  limits: { fileSize: 2 * 1024 * 1024 },
 });
 
 // Upload route.
@@ -59,7 +60,7 @@ uploadRouter.use((err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     const message =
       err.code === "LIMIT_FILE_SIZE"
-        ? "Image is too large. Maximum size is 10MB."
+        ? "Image is too large. Maximum size is 2MB."
         : err.message;
     // Multer aborts mid-upload, so the client may still be streaming the body.
     // Drain it before answering, otherwise Node resets the socket and the

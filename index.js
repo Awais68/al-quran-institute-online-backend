@@ -1,3 +1,6 @@
+// Must be the FIRST import: ESM evaluates imports in order, so every module
+// that reads process.env at load time (config/cloudinary.js) needs .env first.
+import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import morgan from "morgan";
@@ -34,7 +37,6 @@ import {
 } from "./middlewares/security.js";
 import swaggerUi from 'swagger-ui-express';
 import specs from './utils/swagger.js';
-import "dotenv/config";
 
 const app = express();
 const httpServer = createServer(app);
@@ -140,6 +142,10 @@ app.use(globalErrorHandler);
 httpServer.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
   logger.info(`API documentation available at http://localhost:${PORT}/api-docs`);
+  // console.log, not logger: winston's console transport is disabled when
+  // NODE_ENV=production, and the port must always be visible in the terminal.
+  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`API docs: http://localhost:${PORT}/api-docs`);
   console.log(`WebSocket server ready for video sessions`);
 });
 
